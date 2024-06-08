@@ -1,4 +1,4 @@
-# Permission policies module for Nest Js
+# Mails module for Nest Js
 
 This module simplifies sending and queueing emails in nestjs
 

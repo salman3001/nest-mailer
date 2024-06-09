@@ -20,8 +20,14 @@ export class SendgridTransporter implements BaseTransporter {
 
   async queue(mails: NestMail[]): Promise<void> {
     if (!this.queueAdapter) {
-      throw new NestMailError('No Queue adapter is defined');
+      console.warn(
+        'No queue adapter is defined! sending all mails in sync. Long queue will puase the process',
+      );
+      for (const mail of mails) {
+        await this.send(mail);
+      }
+    } else {
+      await this.queueAdapter.queue(mails);
     }
-    await this.queueAdapter.queue(mails);
   }
 }

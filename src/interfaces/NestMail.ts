@@ -4,4 +4,5 @@ export interface NestMail {
   subject: string;
   text: string;
   html: string;
+  setHtml(payload: any): void;
 }

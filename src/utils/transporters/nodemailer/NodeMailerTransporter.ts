@@ -7,13 +7,13 @@ import { QueueAdapter } from '../../../interfaces/QueueAdapter';
 
 export class NodemailerTransporter implements BaseTransporter {
   constructor(
-    private readonly transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>,
-    private readonly queueAdapter: QueueAdapter | undefined,
+    public readonly nodemailer: nodemailer.Transporter<SMTPTransport.SentMessageInfo>,
+    public readonly queueAdapter: QueueAdapter | undefined,
   ) {}
 
   async send(mail: NestMail): Promise<void> {
     try {
-      await this.transporter.sendMail(mail);
+      await this.nodemailer.sendMail(mail);
     } catch (error) {
       throw new NestMailError('Failed to send email with nodemailer', error);
     }

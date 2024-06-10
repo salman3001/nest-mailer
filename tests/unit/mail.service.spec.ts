@@ -11,7 +11,6 @@ import { QueueAdapter } from '../../src/interfaces/QueueAdapter';
 describe('mail service', () => {
   let service: MailService;
   let transporter: BaseTransporter;
-  let queueAdapter: QueueAdapter;
 
   const nodemailerConfig = {
     transporter: 'nodemailer' as 'nodemailer',
@@ -29,7 +28,7 @@ describe('mail service', () => {
   const sendGridConfig = {
     transporter: 'sendgrid' as 'sendgrid',
     options: {
-      apiKey: 'your api key',
+      apiKey: 'SG.kjdkjdksj',
     },
   };
 
@@ -53,22 +52,22 @@ describe('mail service', () => {
     currentTransporterConfig = sendGridConfig;
   });
 
-  // it('transporter should be sendgrid', () => {
-  //   expect(transporter).toBeInstanceOf(SendgridTransporter);
-  // });
+  it('transporter should be sendgrid', () => {
+    expect(transporter).toBeInstanceOf(SendgridTransporter);
+  });
 
-  // it('should call transport send method', () => {
-  //   jest.spyOn(transporter, 'send').mockImplementationOnce(jest.fn());
-  //   service.send(new SampleMail('salman@gmail.com', { name: 'salman' }));
-  //   expect(transporter.send).toHaveBeenCalled();
-  // });
+  it('should call transport send method', () => {
+    jest.spyOn(transporter, 'send').mockImplementationOnce(jest.fn());
+    service.send(new SampleMail('salman@gmail.com', { name: 'salman' }));
+    expect(transporter.send).toHaveBeenCalled();
+  });
 
-  // it('should call transport queue method', () => {
-  //   jest.spyOn(transporter, 'queue').mockImplementationOnce(jest.fn());
-  //   service.queue([
-  //     new SampleMail('salman@gmail.com', { name: 'salman' }),
-  //     new SampleMail('salman@gmail.com', { name: 'salman' }),
-  //   ]);
-  //   expect(transporter.queue).toHaveBeenCalled();
-  // });
+  it('should call transport queue method', () => {
+    jest.spyOn(transporter, 'queue').mockImplementationOnce(jest.fn());
+    service.queue([
+      new SampleMail('salman@gmail.com', { name: 'salman' }),
+      new SampleMail('salman@gmail.com', { name: 'salman' }),
+    ]);
+    expect(transporter.queue).toHaveBeenCalled();
+  });
 });

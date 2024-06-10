@@ -1,7 +1,7 @@
 import { Kafka } from 'kafkajs';
-import { KafkaAdapter } from '../../../../src/utils/queue-adapters/kafka/KafkaAdapter';
-import { NestMailError } from '../../../../src/exceptions/NestMailError';
-import { SampleMail } from '../../../testemails/SampleMail';
+import { KafkaAdapter } from '../../../../../src/utils/queue-adapters/kafka/KafkaAdapter';
+import { NestMailError } from '../../../../../src/exceptions/NestMailError';
+import { SampleMail } from '../../../../testemails/SampleMail';
 
 jest.mock('kafkajs', () => ({
   _esModule: true,

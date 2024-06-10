@@ -6,14 +6,15 @@ import { NestMail } from './interfaces/NestMail';
 @Injectable()
 export class MailService {
   constructor(
-    @Inject(NEST_MAIL_TRANSPORTER) private readonly transport: BaseTransporter,
+    @Inject(NEST_MAIL_TRANSPORTER)
+    private readonly transporter: BaseTransporter,
   ) {}
 
   async send(mail: NestMail) {
-    await this.transport.send(mail);
+    await this.transporter.send(mail);
   }
 
   async queue(mails: NestMail[]) {
-    await this.transport.queue(mails);
+    await this.transporter.queue(mails);
   }
 }

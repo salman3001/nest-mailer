@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest",
     "build": "rimraf dist && tsc",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "test": "jest",
+    "test:e2e": "jest --config ./e2e/jest-e2e.json"
   },
   "files": [
     "/dist",
@@ -18,7 +19,10 @@
     "nest js",
     "mails",
     "mail queues",
-    "mail adapters"
+    "mail adapters",
+    "node mailer",
+    "send grid",
+    "kafka"
   ],
   "author": "salman",
   "license": "ISC",

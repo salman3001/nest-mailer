@@ -6,13 +6,13 @@ import { QueueAdapter } from '../../../interfaces/QueueAdapter';
 
 export class SendgridTransporter implements BaseTransporter {
   constructor(
-    private readonly transporter: MailService,
-    private readonly queueAdapter: QueueAdapter | undefined,
+    public readonly mailer: MailService,
+    public readonly queueAdapter: QueueAdapter | undefined,
   ) {}
 
   async send(mail: NestMail): Promise<void> {
     try {
-      await this.transporter.send(mail);
+      await this.mailer.send(mail);
     } catch (error) {
       throw new NestMailError('failed to send email with send grid', error);
     }

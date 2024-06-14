@@ -12,8 +12,8 @@ describe('get nodemailer', () => {
     expect(getNodemailerTransport).toBeDefined();
   });
 
-  test('it return transporter', () => {
-    const results = getNodemailerTransport({});
+  test('it return transporter', async () => {
+    const results = await getNodemailerTransport({});
     expect(createTransport).toHaveBeenCalled();
     expect(results).toBeInstanceOf(NodemailerTransporter);
   });

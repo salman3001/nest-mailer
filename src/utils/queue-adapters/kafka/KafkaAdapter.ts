@@ -1,4 +1,4 @@
-import { Kafka, Message, Producer } from 'kafkajs';
+import type { Message, Producer } from 'kafkajs';
 import { QueueAdapter } from '../../../interfaces/QueueAdapter';
 import { NestMailError } from '../../../exceptions/NestMailError';
 import { NestMail } from '../../../interfaces/NestMail';

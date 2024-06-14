@@ -1,14 +1,15 @@
-import { Kafka, KafkaConfig } from 'kafkajs';
+import type { KafkaConfig } from 'kafkajs';
 import { KafkaAdapter } from './KafkaAdapter';
 import { NestMailError } from '../../../exceptions/NestMailError';
 
 export const getKafakaAdapter = async (config: KafkaConfig) => {
-  if (!Kafka) {
+  try {
+  } catch (error) {
     throw new NestMailError(
       'Kafka js  is not installed. Please install it using "npm install  kafkajs".',
     );
   }
-
+  const { Kafka } = await import('kafkajs');
   const kafka = new Kafka(config);
   const producer = kafka.producer();
   try {
@@ -23,9 +24,10 @@ export const getKafakaAdapter = async (config: KafkaConfig) => {
       producer.disconnect();
       process.exit(0);
     });
+    return new KafkaAdapter(producer);
   } catch (error) {
-    throw new NestMailError('Failed to connect to kafka');
+    throw new NestMailError(
+      'Failed to connect to kafka! is kafkajs installed or is config correct?',
+    );
   }
-
-  return new KafkaAdapter(producer);
 };

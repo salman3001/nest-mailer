@@ -15,9 +15,9 @@ export class MailModule {
       provide: NEST_MAIL_TRANSPORTER,
       useFactory: async (queueAdapter: QueueAdapter | undefined) => {
         if (opt.transporter === 'nodemailer') {
-          return getNodemailerTransport(opt.options, queueAdapter);
+          return await getNodemailerTransport(opt.options, queueAdapter);
         } else if (opt.transporter === 'sendgrid') {
-          return getSendgridTransport(opt.options, queueAdapter);
+          return await getSendgridTransport(opt.options, queueAdapter);
         } else {
           throw new Error('Invalid transporter specified.');
         }
@@ -29,7 +29,7 @@ export class MailModule {
       provide: NEST_MAIL_QUEUE_ADAPTOR,
       useFactory: async () => {
         if (opt.queueAdapter?.name === 'Kafkajs') {
-          return getKafakaAdapter(opt.queueAdapter.options);
+          return await getKafakaAdapter(opt.queueAdapter.options);
         }
         return undefined;
       },
@@ -57,9 +57,9 @@ export class MailModule {
       ) => {
         const config = await options.useFactory(...args);
         if (config.transporter === 'nodemailer') {
-          return getNodemailerTransport(config.options, queueAdapter);
+          return await getNodemailerTransport(config.options, queueAdapter);
         } else if (config.transporter === 'sendgrid') {
-          return getSendgridTransport(config.options, queueAdapter);
+          return await getSendgridTransport(config.options, queueAdapter);
         } else {
           throw new Error('Invalid transporter specified.');
         }
@@ -75,7 +75,7 @@ export class MailModule {
       useFactory: async (...args: any[]) => {
         const config = await options.useFactory(...args);
         if (config.queueAdapter?.name === 'Kafkajs') {
-          return getKafakaAdapter(config.queueAdapter.options);
+          return await getKafakaAdapter(config.queueAdapter.options);
         }
         return undefined;
       },

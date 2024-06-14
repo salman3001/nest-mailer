@@ -1,12 +1,11 @@
 import { BaseTransporter } from '../../../interfaces/BaseTransporter';
-import { MailService } from '@sendgrid/mail';
 import { NestMail } from '../../../interfaces/NestMail';
 import { NestMailError } from '../../../exceptions/NestMailError';
 import { QueueAdapter } from '../../../interfaces/QueueAdapter';
 
 export class SendgridTransporter implements BaseTransporter {
   constructor(
-    public readonly mailer: MailService,
+    public readonly mailer: any,
     public readonly queueAdapter: QueueAdapter | undefined,
   ) {}
 

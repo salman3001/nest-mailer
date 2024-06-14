@@ -1,5 +1,3 @@
-import * as nodemailer from 'nodemailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import { BaseTransporter } from '../../../interfaces/BaseTransporter';
 import { NestMail } from '../../../interfaces/NestMail';
 import { NestMailError } from '../../../exceptions/NestMailError';
@@ -7,7 +5,7 @@ import { QueueAdapter } from '../../../interfaces/QueueAdapter';
 
 export class NodemailerTransporter implements BaseTransporter {
   constructor(
-    public readonly nodemailer: nodemailer.Transporter<SMTPTransport.SentMessageInfo>,
+    public readonly nodemailer: any,
     public readonly queueAdapter: QueueAdapter | undefined,
   ) {}
 

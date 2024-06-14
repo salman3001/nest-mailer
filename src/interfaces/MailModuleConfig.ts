@@ -1,5 +1,5 @@
-import { KafkaConfig } from 'kafkajs';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import type { KafkaConfig } from 'kafkajs';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 interface QueAdapterBasecofnig {
   name: 'Kafkajs' | 'Not Imlemented';

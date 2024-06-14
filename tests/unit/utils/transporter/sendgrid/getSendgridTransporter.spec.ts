@@ -9,7 +9,9 @@ describe('get nodemailer', () => {
 
   test('it return transporter', async () => {
     jest.spyOn(sgMail, 'setApiKey').mockImplementationOnce(jest.fn());
-    const results = getSendgridTransport({ apiKey: 'SG.skjdkjdsk' });
+    const results = await getSendgridTransport({ apiKey: 'SG.skjdkjdsk' });
+    console.log(results);
+
     expect(sgMail.setApiKey).toHaveBeenCalled();
     expect(results).toBeInstanceOf(SendgridTransporter);
   });

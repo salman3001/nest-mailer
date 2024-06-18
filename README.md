@@ -11,7 +11,8 @@
 ### Queue adapters currently supported
 
 - Kafka
-- more may be added in future like Bullmq
+- bullmq
+- more may be added in future
 
 ### Instructions
 
@@ -121,7 +122,7 @@ export class UsersService {
 }
 ```
 
-- you can send email in real time by using send method or queue multiple emails. to use queue method a queue adapter should be defined. if no queue adapter is defined it will send all mails in sync, same as send method. to define a queue adapter add below options to mail module.
+- you can send email in real time by using send method or queue multiple emails. to use queue method. a queue adapter should be defined. if no queue adapter is defined it will send all mails in sync, same as send method. which is helpfull in development as we dont need to setup queue system just yet. to define a queue adapter add below options to mail module.
 
 ```typescript
 imports: [
@@ -131,10 +132,9 @@ imports: [
       //... transporter options
     },
     queueAdapter: {
-      name: 'Kafkajs' //<-- queue adapter name,
-      options: {
-        brokers: ['your broker config'], //<-- queue adapter options
-      },
+      name: 'Kafkajs' | 'bullmq' //<-- queue adapter name
+      options: { }//<-- queue adapter options
+
     },
   }),
 ];
@@ -144,10 +144,11 @@ imports: [
 
 ```typescript
 npm install kafkajs
+npm install bullmq
 // or others once avaialable
 
 ```
 
 - select a queue adapter and provide related config. typescript will help.
-- currently only kafka js is supported.but will add more in future. probably bullMq next.
-- but keep note that queueadapter will just queue and will not execute the queue. for example kafka adapter will queue email as 'topic: 'send-email', you have setup consumer yourself that will consume these topics and process the queue. you can check the nest js Kafka microservice page to setup a kafka consumer.
+- if you choose kafka and provide kafka options. mail queue will produce message 'send-email'. you have to setup consumer your self and send the actual email. check kafkajs docs.
+- if you choose bullmq and provide bullmq options. mail queue will create job 'new-email' in 'email-queue' queue. you have to setup a bullmq worker that will process jobs from this queue. check bullmq docs.

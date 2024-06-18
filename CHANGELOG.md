@@ -1,3 +1,10 @@
+## v2.1.0 - 2024-06-18
+
+#### Features added
+
+- added support for bullmq queue adapter
+- bug fixes - typehints were not working
+
 ## v2.0.1 - 2024-06-14
 
 ### Bug fixes

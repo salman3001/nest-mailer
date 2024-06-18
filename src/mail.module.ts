@@ -7,6 +7,7 @@ import { NEST_MAIL_TRANSPORTER } from './constants/NEST_MAIL_TRANSPORTER';
 import { getKafakaAdapter } from './utils/queue-adapters/kafka/getKafkaAdapter';
 import { NEST_MAIL_QUEUE_ADAPTOR } from './constants/NEST_MAIL_QUEUE_ADAPTOR';
 import { QueueAdapter } from './interfaces/QueueAdapter';
+import { getBullMqAdapter } from './utils/queue-adapters/bullMq/getBullMqAdapter';
 
 @Module({})
 export class MailModule {
@@ -30,6 +31,8 @@ export class MailModule {
       useFactory: async () => {
         if (opt.queueAdapter?.name === 'Kafkajs') {
           return await getKafakaAdapter(opt.queueAdapter.options);
+        } else if (opt.queueAdapter?.name === 'BullMq') {
+          return await getBullMqAdapter(opt.queueAdapter.options);
         }
         return undefined;
       },
@@ -45,9 +48,7 @@ export class MailModule {
 
   static registerAsync(options: {
     inject: any[];
-    useFactory: (
-      ...args: any[]
-    ) => Promise<MailModuleConfig> | MailModuleConfig;
+    useFactory: (...args: any[]) => MailModuleConfig;
   }): DynamicModule {
     const transporterProvider: Provider = {
       provide: NEST_MAIL_TRANSPORTER,
@@ -76,6 +77,8 @@ export class MailModule {
         const config = await options.useFactory(...args);
         if (config.queueAdapter?.name === 'Kafkajs') {
           return await getKafakaAdapter(config.queueAdapter.options);
+        } else if (config.queueAdapter?.name === 'BullMq') {
+          return await getBullMqAdapter(config.queueAdapter.options);
         }
         return undefined;
       },

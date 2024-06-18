@@ -1,13 +1,19 @@
+import type { QueueOptions } from 'bullmq';
 import type { KafkaConfig } from 'kafkajs';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 interface QueAdapterBasecofnig {
-  name: 'Kafkajs' | 'Not Imlemented';
+  name: 'Kafkajs' | 'BullMq' | 'Not Imlemented';
 }
 
 interface KafakaAdapterConfig extends QueAdapterBasecofnig {
   name: 'Kafkajs';
   options: KafkaConfig;
+}
+
+interface BullMqAdapter extends QueAdapterBasecofnig {
+  name: 'BullMq';
+  options: QueueOptions;
 }
 
 interface NotImplementedAdapter extends QueAdapterBasecofnig {
@@ -17,7 +23,7 @@ interface NotImplementedAdapter extends QueAdapterBasecofnig {
 
 export interface BaseConfig {
   transporter: 'nodemailer' | 'sendgrid';
-  queueAdapter?: KafakaAdapterConfig | NotImplementedAdapter;
+  queueAdapter?: KafakaAdapterConfig | NotImplementedAdapter | BullMqAdapter;
 }
 
 export interface NodemailerConfig extends BaseConfig {
